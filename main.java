@@ -14,8 +14,6 @@ public class main {
         int seleccion=1;
         int opcion; 
         Scanner scan = new Scanner(System.in);
-        
-        
        
         while(seleccion!=5){
             System.out.println("");
@@ -29,17 +27,21 @@ public class main {
            
             if(seleccion==1){
                 matriz.Corto();
-                System.out.println("Ciudad de salida");
-                String ciudad1 = scan.next(); 
-                System.out.println("Ciudad de destino");
-                String ciudad2 = scan.next();
-                
-                if(matriz.D.contenido(ciudad1)&&matriz.D.contenido(ciudad2)){
-                    System.out.println("\nLa distancia minima es: "+matriz.D.gete(ciudad1, ciudad2)+".");
-                    if(matriz.D.gete(ciudad1, ciudad2)!=9999){
-                        System.out.print("La ruta es: "+ciudad1);
-                        matriz.Intermedias(matriz.D.geti(ciudad1), matriz.D.geti(ciudad2));
-                        System.out.println(", "+ciudad2);
+                System.out.print("Ciudad de salida: ");
+                String c1 = scan.next(); 
+                System.out.print("Ciudad de destino: ");
+                String c2 = scan.next();
+                if(matriz.grafoIn.contenido(c1)&&matriz.grafoIn.contenido(c2)){
+                    System.out.println("\nLa distancia minima es: "+matriz.grafoIn.gete(c1, c2)+".");
+                    if(matriz.grafoIn.gete(c1, c2)!=9999){
+                        System.out.print("La ruta es: "+c1);
+                        try {
+                        matriz.Intermedias(matriz.grafoIn.geti(c1), matriz.grafoIn.geti(c2));
+                        } catch (Exception e) {
+                           System.out.println("");
+                        }
+                        
+                        System.out.println(", "+c2);
                     }
                 }
             }
@@ -51,51 +53,52 @@ public class main {
             }
             
             
-            else if(seleccion==3){
-                System.out.println("1. Hay interrupciones en Ciudades");
-                System.out.println("2. Establecer nueva conexion");
-                opcion = scan.nextInt();
-                
+            if(seleccion==3){
+                System.out.println("    1. Hay interrupciones en Ciudades");
+                System.out.println("    2. Establecer nueva conexion");
+                System.out.print("       Ingrese la opcion: ");
+                opcion = scan.nextInt(); 
                 if(opcion==1){
-                    System.out.println("Ciudad de salida");
-                    String ciudad1 = scan.next();
-                    System.out.println("Ciudad de destino");
-                    String ciudad2 = scan.next();
-                    if(matriz.D.contenido(ciudad1)&&matriz.D.contenido(ciudad2)){
-                        matriz.D.agregare(ciudad1, ciudad2, 9999);
+                    System.out.print("     Ciudad de salida: ");
+                    String c1 = scan.next();
+                    System.out.print("     Ciudad de destino: ");
+                    String c2 = scan.next();
+                    if(matriz.grafoIn.contenido(c1)&&matriz.grafoIn.contenido(c2)){
+                        matriz.grafoIn.agregare(c1, c2, 9999);
                         try {
-                            matriz.archivo.Escribir(ciudad1+" "+ciudad2+" 9999");
+                            matriz.archivo.Escribir(c1+" "+c2+" 9999");
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
                     }
                 }
-                else if(opcion==2){
-                    System.out.println("Ciudad de salida: ");
-                    String ciudad1 = scan.next();
-                    System.out.println("Ciudad de destino: ");
-                    String ciudad2 = scan.next();
-                    System.out.println("Distancia entre las ciudades");
-                    int distancia = scan.nextInt();
-                    if(matriz.D.contenido(ciudad1)&&matriz.D.contenido(ciudad2)){
-                        matriz.D.agregare(ciudad1, ciudad2, distancia);
+                if(opcion==2){
+                    System.out.print("    Ciudad de salida: ");
+                    String c1 = scan.next();
+                    System.out.print("    Ciudad de destino: ");
+                    String c2 = scan.next();
+                    System.out.print("    Distancia entre las ciudades: ");
+                    int d = scan.nextInt();
+                    if(matriz.grafoIn.contenido(c1)&&matriz.grafoIn.contenido(c2)){
+                        matriz.grafoIn.agregare(c1, c2, d);
                     }
                     else{
-                        matriz.D.agregar(ciudad1);
-                        matriz.D.agregar(ciudad2);
-                        matriz.D.agregare(ciudad1, ciudad2, distancia);
+                        matriz.grafoIn.agregar(c1);
+                        matriz.grafoIn.agregar(c2);
+                        matriz.grafoIn.agregare(c1, c2, d);
                     }
                     try {
-                        matriz.archivo.Escribir(ciudad1+" "+ciudad2+" "+distancia);
+                        matriz.archivo.Escribir(c1+" "+c2+" "+d);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
                 }
-                else if(opcion==4){
-                    System.out.println("\nMatriz de adyacencia");
-                    matriz.D.mostrar();
-                }
                 matriz.Corto();
+            }
+            if(seleccion==4){
+                    System.out.println("");
+                    System.out.println("Matriz de adyacencia: ");
+                    matriz.grafoIn.mostrar();
             }
         }
     }

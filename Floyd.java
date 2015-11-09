@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Floyd {
     
     Read archivo= new Read();
-    InterfazGrafo D;
+    InterfazGrafo grafoIn;
     int[][] medios;
     int[] cantidad;
     int centro;
@@ -17,7 +17,7 @@ public class Floyd {
         
         try {
             archivo.LeerArchivo("datos.txt");
-            D = archivo.Arcos(); 
+            grafoIn = archivo.Arcos(); 
             medios = new int[30][30];
             cantidad = new int[30];
         } catch (IOException ex) {
@@ -31,11 +31,11 @@ public class Floyd {
     }
     
     public void Corto(){
-        for(int k=0;k<D.largo();k++){
-            for(int i=0;i<D.largo();i++){
-                for(int j=0;j<D.largo();j++){
-                    if(D.gete(D.get(i),D.get(j))>(D.gete(D.get(i), D.get(k))+D.gete(D.get(k), D.get(j)))){
-                        D.agregare(D.get(i), D.get(j), (D.gete(D.get(i), D.get(k))+D.gete(D.get(k), D.get(j))));
+        for(int k=0;k<grafoIn.largo();k++){
+            for(int i=0;i<grafoIn.largo();i++){
+                for(int j=0;j<grafoIn.largo();j++){
+                    if(grafoIn.gete(grafoIn.get(i),grafoIn.get(j))>(grafoIn.gete(grafoIn.get(i), grafoIn.get(k))+grafoIn.gete(grafoIn.get(k), grafoIn.get(j)))){
+                        grafoIn.agregare(grafoIn.get(i), grafoIn.get(j), (grafoIn.gete(grafoIn.get(i), grafoIn.get(k))+grafoIn.gete(grafoIn.get(k), grafoIn.get(j))));
                         medios[i][j]=k;
                     }
                 }
@@ -48,12 +48,12 @@ public class Floyd {
         Corto();
         int n=0;       
         // Encontrar los maximos de cada columna de la matriz
-        for(int i=0;i<D.largo();i++){
-            for(int j=0;j<D.largo()-1;j++){
-                int num1=D.gete(D.get(j), D.get(i));
+        for(int i=0;i<grafoIn.largo();i++){
+            for(int j=0;j<grafoIn.largo()-1;j++){
+                int num1=grafoIn.gete(grafoIn.get(j), grafoIn.get(i));
                 n=j;
                 n++;
-                int num2=D.gete(D.get(n), D.get(i));
+                int num2=grafoIn.gete(grafoIn.get(n), grafoIn.get(i));
                 if(num1>num2){
                     cantidad[i]=num1;
                 }
@@ -64,26 +64,29 @@ public class Floyd {
             n++;
         }
         // Encontrar el minimo de los maximos de cada columna
-        for(int i=0;i<D.largo();i++){
+        for(int i=0;i<grafoIn.largo();i++){
             int num1=cantidad[i];
             if(num1<minimo){
                 centro=i;
                 minimo=num1;
             }
         }
-        System.out.println(""+D.get(centro));
+        System.out.println(""+grafoIn.get(centro));
         
     }
     
     public void Intermedias(int num, int num2){
-        if(medios[num][num2]!=9999){
-            
+        try {
+            if(medios[num][num2]!=9999){
             Intermedias(num,medios[num][num2]);   //recursion
-            System.out.print(", "+D.get(medios[num][num2]));
+            System.out.print(", "+grafoIn.get(medios[num][num2]));
             Intermedias(medios[num][num2],num2);   //recursion
-            
             return;
+            }else return;
+        } catch (Exception e) {
+                System.out.println("");
+                return;
         }
-        else return;       
+               
     }
 }
