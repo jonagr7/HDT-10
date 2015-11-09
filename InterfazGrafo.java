@@ -1,5 +1,7 @@
+
+
 /**
- *
+ *  Jose Corona, Jhonathan Aguirre
  */
 public interface InterfazGrafo<V,E> {
 
@@ -41,5 +43,6 @@ public interface InterfazGrafo<V,E> {
     /**
      * retorna el tamaño de la matríz
      */
-    public int largo();  
+    public int largo();
+    
 }

@@ -1,22 +1,21 @@
 import java.util.Vector;
 /**
- *Jonathan Aguirre 14349
- * Jose Corona 14417
+ *
  */
-public class GraphMatrix<V,E> implements InterfazGrafo<V,E>{
+public class GphM<V,E> implements InterfazGrafo<V,E>{
     private Vector v = new Vector();
     private int[][] ag = new int [25][25];
     /**
      * Constructor
      */
-    public GraphMatrix(){
+    public GphM(){
     for(int i=0;i<25;i++){
        for(int j=0;j<25;j++){
         if(i==j){
         ag[i][j]=0;
         }
         else{
-        ag[i][j]=10000;
+        ag[i][j]=9999;
         }
       }
     }
@@ -50,6 +49,7 @@ public class GraphMatrix<V,E> implements InterfazGrafo<V,E>{
             }
         System.out.println("");
       }
+        System.out.println("");
     }
     
     /**
