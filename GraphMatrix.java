@@ -1,7 +1,7 @@
 import java.util.Vector;
 /**
  *Jonathan Aguirre 14349
- * Jose Corona 14
+ * Jose Corona 14417
  */
 public class GraphMatrix<V,E> implements InterfazGrafo<V,E>{
     private Vector v = new Vector();
