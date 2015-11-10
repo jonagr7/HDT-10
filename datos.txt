@@ -1,0 +1,5 @@
+Guatemala Peten 45
+Peten Guatemala 65
+Antigua Peten 25
+Guatemala Antigua 25
+Guatemala Atitlan 40
